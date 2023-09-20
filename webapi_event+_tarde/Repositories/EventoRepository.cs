@@ -18,7 +18,11 @@ namespace webapi_event__tarde.Repositories
 
             if (eventoBuscado != null)
                 {
-                eventoBuscado.Titulo = evento.Titulo;
+                eventoBuscado.Descricao = evento.Descricao;
+                eventoBuscado.IdInstituicao = evento.IdInstituicao;
+                eventoBuscado.DataEvento = evento.DataEvento;
+                eventoBuscado.IdTipoEvento = evento.IdTipoEvento;
+                eventoBuscado.NomeEvento = evento.NomeEvento;
 
                 _eventContext.Evento.Update(eventoBuscado);
 

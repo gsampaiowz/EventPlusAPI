@@ -22,7 +22,8 @@ namespace webapi_event__tarde.Repositories
                 {
                 usuarioBuscado.Nome = usuario.Nome;
                 usuarioBuscado.Email = usuario.Email;
-                usuarioBuscado.Nome = usuario.Nome;
+                usuarioBuscado.Senha = Criptografia.GerarHash(usuario.Senha!);
+                usuarioBuscado.IdTipoUsuario = usuario.IdTipoUsuario;
 
                 _eventContext.Usuario.Update(usuarioBuscado);
 
@@ -36,7 +37,20 @@ namespace webapi_event__tarde.Repositories
             {
             try
                 {
-                Usuario usuarioBuscado = _eventContext.Usuario.Include(u => u.TipoUsuario).FirstOrDefault(u => u.Email == email)!;
+                Usuario usuarioBuscado = _eventContext.Usuario
+                    .Select(u => new Usuario
+                        {
+                        IdUsuario = u.IdUsuario,
+                        Nome = u.Nome,
+                        Email = u.Email,
+                        Senha = u.Senha,
+
+                        TipoUsuario = new TipoUsuario
+                            {
+                            IdTipoUsuario = u.IdTipoUsuario,
+                            Titulo = u.TipoUsuario!.Titulo
+                            }
+                        }).FirstOrDefault(u => u.Email == email)!;
 
                 if (usuarioBuscado != null)
                     {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using webapi_event__tarde.Domains;
 using webapi_event__tarde.Interfaces;
@@ -18,6 +19,7 @@ namespace webapi_event__tarde.Controllers
             _tipoUsuarioRepository = new TipoUsuarioRepository();
             }
 
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         public IActionResult Post(TipoUsuario tipoUsuario)
             {
@@ -32,6 +34,7 @@ namespace webapi_event__tarde.Controllers
                 }
             }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Get()
             {
@@ -45,12 +48,43 @@ namespace webapi_event__tarde.Controllers
                 }
             }
 
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetById(Guid id)
             {
             try
                 {
                 return Ok(_tipoUsuarioRepository.BuscarPorId(id));
+                }
+            catch (Exception e)
+                {
+                return BadRequest(e.Message);
+                }
+            }
+
+        [Authorize(Roles = "Administrador")]
+        [HttpDelete("{id}")]
+        public IActionResult Delete(Guid id)
+            {
+            try
+                {
+                _tipoUsuarioRepository.Deletar(id);
+                return StatusCode(204);
+                }
+            catch (Exception e)
+                {
+                return BadRequest(e.Message);
+                }
+            }
+
+        [Authorize(Roles = "Administrador")]
+        [HttpPut("{id}")]
+        public IActionResult Put(Guid id, TipoUsuario tipoUsuario)
+            {
+            try
+                {
+                _tipoUsuarioRepository.Atualizar(id, tipoUsuario);
+                return StatusCode(204);
                 }
             catch (Exception e)
                 {

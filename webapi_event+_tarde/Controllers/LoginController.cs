@@ -30,9 +30,11 @@ namespace webapi_event__tarde.Controllers
 
                 if (usuarioBuscado == null) return StatusCode(401, "Email ou senha inválidos");
 
+                //Lógica para TOKEN
                 var claims = new[]
                     {
                     new Claim(JwtRegisteredClaimNames.Email, usuarioBuscado.Email!),
+                    new Claim(JwtRegisteredClaimNames.Name, usuarioBuscado.Nome!.ToString()),
                     new Claim(JwtRegisteredClaimNames.Jti, usuarioBuscado.IdUsuario.ToString()),
                     new Claim(ClaimTypes.Role, usuarioBuscado.TipoUsuario!.Titulo!.ToString()!)
                     };
@@ -46,14 +48,14 @@ namespace webapi_event__tarde.Controllers
                     issuer: "event.webApi",
                     audience: "event.webApi",
                     claims: claims,
-                    expires: DateTime.Now.AddMinutes(30),
+                    expires: DateTime.Now.AddMinutes(5),
                     signingCredentials: creds 
                     );
 
                 return Ok(new
                     {
                     token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = DateTime.Now.AddMinutes(30)
+                    expiration = DateTime.Now.AddMinutes(5)
                     });
                 }
             catch (Exception)

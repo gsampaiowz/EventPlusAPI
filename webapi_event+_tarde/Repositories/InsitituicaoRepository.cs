@@ -15,10 +15,12 @@ namespace webapi_event__tarde.Repositories
         public void Atualizar(Guid id, Instituicao instituicao)
             {
             Instituicao instituicaoBuscado = BuscarPorId(id);
-
+                                                             
             if (instituicaoBuscado != null)
                 {
-                instituicaoBuscado.Titulo = instituicao.Titulo;
+                instituicaoBuscado.NomeFantasia = instituicao.NomeFantasia;
+                instituicaoBuscado.CNPJ = instituicao.CNPJ;
+                instituicaoBuscado.Endereco = instituicao.Endereco;
 
                 _eventContext.Instituicao.Update(instituicaoBuscado);
 

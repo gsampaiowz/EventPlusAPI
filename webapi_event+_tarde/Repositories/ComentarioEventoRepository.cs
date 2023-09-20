@@ -18,7 +18,10 @@ namespace webapi_event__tarde.Repositories
 
             if (comentarioEventoBuscado != null)
                 {
-                comentarioEventoBuscado.Titulo = comentarioEvento.Titulo;
+                comentarioEventoBuscado.Texto = comentarioEvento.Texto;
+                comentarioEventoBuscado.Exibe = comentarioEvento.Exibe;
+                comentarioEventoBuscado.IdUsuario = comentarioEvento.IdUsuario;
+                comentarioEventoBuscado.IdEvento = comentarioEvento.IdEvento;
 
                 _eventContext.ComentarioEvento.Update(comentarioEventoBuscado);
 

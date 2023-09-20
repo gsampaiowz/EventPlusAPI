@@ -18,7 +18,9 @@ namespace webapi_event__tarde.Repositories
 
             if (presencaEventoBuscado != null)
                 {
-                presencaEventoBuscado.Titulo = presencaEvento.Titulo;
+                presencaEventoBuscado.Situacao = presencaEvento.Situacao;
+                presencaEventoBuscado.IdEvento = presencaEvento.IdEvento;
+                presencaEventoBuscado.IdUsuario = presencaEvento.IdUsuario;
 
                 _eventContext.PresencaEvento.Update(presencaEventoBuscado);
 
