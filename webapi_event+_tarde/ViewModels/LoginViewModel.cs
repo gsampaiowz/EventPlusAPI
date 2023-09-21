@@ -2,6 +2,7 @@
 
 namespace webapi.inlock.codefirst.ViewModels
     {
+    //Classe responsável pelo modelo de login
     public class LoginViewModel
         {
         [Required(ErrorMessage = "Email obrigatório!")]

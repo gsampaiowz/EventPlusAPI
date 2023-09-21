@@ -35,7 +35,46 @@ namespace webapi_event__tarde.Repositories
             {
             try
                 {
-                return _eventContext.ComentarioEvento.Find(id)!;
+                return _eventContext.ComentarioEvento.Select(ce => new ComentarioEvento
+                    {
+                    IdComentarioEvento = ce.IdComentarioEvento,
+                    Texto = ce.Texto,
+                    Exibe = ce.Exibe,
+
+                    IdEvento = ce.IdEvento,
+
+                    Evento = new Evento
+                        {
+                        IdEvento = ce.Evento!.IdEvento,
+                        NomeEvento = ce.Evento!.NomeEvento,
+                        DataEvento = ce.Evento!.DataEvento,
+                        Descricao = ce.Evento!.Descricao,
+
+                        IdInstituicao = ce.Evento!.IdInstituicao,
+                        IdTipoEvento = ce.Evento!.IdTipoEvento,
+
+                        Instituicao = new Instituicao
+                            {
+                            IdInstituicao = ce.Evento!.Instituicao!.IdInstituicao,
+                            NomeFantasia = ce.Evento!.Instituicao!.NomeFantasia,
+                            Endereco = ce.Evento!.Instituicao!.Endereco,
+                            CNPJ = ce.Evento!.Instituicao!.CNPJ,
+                            },
+
+                        TipoEvento = new TipoEvento
+                            {
+                            IdTipoEvento = ce.Evento!.TipoEvento!.IdTipoEvento,
+                            Titulo = ce.Evento!.TipoEvento!.Titulo
+                            }
+                        },
+
+                    Usuario = new Usuario
+                        {
+                        IdUsuario = ce.IdUsuario,
+                        Nome = ce.Usuario!.Nome,
+                        Email = ce.Usuario!.Email
+                        }
+                    }).FirstOrDefault(ce => ce.IdComentarioEvento == id)!;
                 }
             catch (Exception)
                 {
@@ -73,7 +112,46 @@ namespace webapi_event__tarde.Repositories
             {
             try
                 {
-                return _eventContext.ComentarioEvento.ToList();
+                return _eventContext.ComentarioEvento.Select(ce => new ComentarioEvento
+                    {
+                    IdComentarioEvento = ce.IdComentarioEvento,
+                    Texto = ce.Texto,
+                    Exibe = ce.Exibe,
+
+                    IdEvento = ce.IdEvento,
+
+                    Evento = new Evento
+                        {
+                        IdEvento = ce.Evento!.IdEvento,
+                        NomeEvento = ce.Evento!.NomeEvento,
+                        DataEvento = ce.Evento!.DataEvento,
+                        Descricao = ce.Evento!.Descricao,
+
+                        IdInstituicao = ce.Evento!.IdInstituicao,
+                        IdTipoEvento = ce.Evento!.IdTipoEvento,
+
+                        Instituicao = new Instituicao
+                            {
+                            IdInstituicao = ce.Evento!.Instituicao!.IdInstituicao,
+                            NomeFantasia = ce.Evento!.Instituicao!.NomeFantasia,
+                            Endereco = ce.Evento!.Instituicao!.Endereco,
+                            CNPJ = ce.Evento!.Instituicao!.CNPJ,
+                            },
+
+                        TipoEvento = new TipoEvento
+                            {
+                            IdTipoEvento = ce.Evento!.TipoEvento!.IdTipoEvento,
+                            Titulo = ce.Evento!.TipoEvento!.Titulo
+                            }
+                        },
+
+                    Usuario = new Usuario
+                        {
+                        IdUsuario = ce.IdUsuario,
+                        Nome = ce.Usuario!.Nome,
+                        Email = ce.Usuario!.Email
+                        }
+                    }).ToList();
                 }
             catch (Exception)
                 {

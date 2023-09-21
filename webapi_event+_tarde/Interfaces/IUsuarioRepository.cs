@@ -10,5 +10,7 @@ namespace webapi_event__tarde.Interfaces
         void Cadastrar(Usuario usuario);
         void Atualizar(Guid id, Usuario usuario);
         void Deletar(Guid id);
+
+        List<PresencaEvento> ListarMinhas(Guid id);
         }
     }

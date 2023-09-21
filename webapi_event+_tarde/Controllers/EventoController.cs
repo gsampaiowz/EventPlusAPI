@@ -91,5 +91,19 @@ namespace webapi_event__tarde.Controllers
                 return BadRequest(e.Message);
                 }
             }
+
+        [Authorize]
+        [HttpGet("Comentarios")]
+        public IActionResult GetComentarios(Guid id)
+            {
+            try
+                {
+                return Ok(_eventoRepository.ListarComentariosEvento(id));
+                }
+            catch (Exception e)
+                {
+                return BadRequest(e.Message);
+                }
+            }
         }
     }

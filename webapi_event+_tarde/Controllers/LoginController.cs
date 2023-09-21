@@ -48,14 +48,14 @@ namespace webapi_event__tarde.Controllers
                     issuer: "event.webApi",
                     audience: "event.webApi",
                     claims: claims,
-                    expires: DateTime.Now.AddMinutes(5),
+                    expires: DateTime.Now.AddMinutes(30),
                     signingCredentials: creds 
                     );
 
                 return Ok(new
                     {
                     token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = DateTime.Now.AddMinutes(5)
+                    expiration = DateTime.Now.AddMinutes(30)
                     });
                 }
             catch (Exception)

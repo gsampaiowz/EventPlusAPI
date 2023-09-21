@@ -36,7 +36,30 @@ namespace webapi_event__tarde.Repositories
             {
             try
                 {
-                return _eventContext.Evento.Find(id)!;
+                return _eventContext.Evento.Select(e => new Evento
+                    {
+                    IdEvento = e.IdEvento,
+                    NomeEvento = e.NomeEvento,
+                    Descricao = e.Descricao,
+                    DataEvento = e.DataEvento,
+
+                    IdInstituicao = e.IdInstituicao,
+                    IdTipoEvento = e.IdTipoEvento,
+
+                    Instituicao = new Instituicao
+                        {
+                        IdInstituicao = e.IdInstituicao,
+                        NomeFantasia = e.Instituicao!.NomeFantasia,
+                        Endereco = e.Instituicao.Endereco,
+                        CNPJ = e.Instituicao.CNPJ,
+                        },
+
+                    TipoEvento = new TipoEvento
+                        {
+                        IdTipoEvento = e.IdTipoEvento,
+                        Titulo = e.TipoEvento!.Titulo
+                        }
+                    }).FirstOrDefault(e => e.IdEvento == id)!;
                 }
             catch (Exception)
                 {
@@ -74,7 +97,76 @@ namespace webapi_event__tarde.Repositories
             {
             try
                 {
-                return _eventContext.Evento.ToList();
+                return _eventContext.Evento.Select(e => new Evento
+                    {
+                    IdEvento = e.IdEvento,
+                    NomeEvento = e.NomeEvento,
+                    Descricao = e.Descricao,
+                    DataEvento = e.DataEvento,
+
+                    IdInstituicao = e.IdInstituicao,
+                    IdTipoEvento = e.IdTipoEvento,
+
+                    Instituicao = new Instituicao
+                        {
+                        IdInstituicao = e.IdInstituicao,
+                        NomeFantasia = e.Instituicao!.NomeFantasia,
+                        Endereco = e.Instituicao.Endereco,
+                        CNPJ = e.Instituicao.CNPJ,
+                        },
+
+                    TipoEvento = new TipoEvento
+                        {
+                        IdTipoEvento = e.IdTipoEvento,
+                        Titulo = e.TipoEvento!.Titulo
+                        }
+                    }).ToList();
+                }
+            catch (Exception)
+                {
+                throw;
+                }
+            }
+
+        //Método para listar os comentários de um determinado evento
+        public List<ComentarioEvento> ListarComentariosEvento(Guid id)
+            {
+            try
+                {
+                return _eventContext.ComentarioEvento.Where(ce => ce.IdEvento == id).Select(ce => new ComentarioEvento
+                    {
+                    IdComentarioEvento = ce.IdComentarioEvento,
+                    Texto = ce.Texto,
+                    Exibe = ce.Exibe,
+
+                    IdEvento = ce.IdEvento,
+
+                    Evento = new Evento
+                        {
+                        IdEvento = ce.IdEvento,
+                        NomeEvento = ce.Evento!.NomeEvento,
+                        Descricao = ce.Evento.Descricao,
+                        DataEvento = ce.Evento.DataEvento,
+
+                        IdInstituicao = ce.Evento.IdInstituicao,
+                        IdTipoEvento = ce.Evento.IdTipoEvento,
+
+                        Instituicao = new Instituicao
+                            {
+                            IdInstituicao = ce.Evento.IdInstituicao,
+                            NomeFantasia = ce.Evento.Instituicao!.NomeFantasia,
+                            Endereco = ce.Evento.Instituicao.Endereco,
+                            CNPJ = ce.Evento.Instituicao.CNPJ,
+                            },
+
+                        TipoEvento = new TipoEvento
+                            {
+                            IdTipoEvento = ce.Evento.IdTipoEvento,
+                            Titulo = ce.Evento.TipoEvento!.Titulo
+                            }
+                        }
+
+                    }).ToList();
                 }
             catch (Exception)
                 {

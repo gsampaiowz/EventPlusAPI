@@ -34,7 +34,46 @@ namespace webapi_event__tarde.Repositories
             {
             try
                 {
-                return _eventContext.PresencaEvento.Find(id)!;
+                return _eventContext.PresencaEvento.Select(pe => new PresencaEvento
+                    {
+                    IdPresencaEvento = pe.IdPresencaEvento,
+                    Situacao = pe.Situacao,
+
+                    IdUsuario = pe.IdUsuario,
+                    IdEvento = pe.IdEvento,
+
+                    Usuario = new Usuario
+                        {
+                        IdUsuario = pe.Usuario!.IdUsuario,
+                        Nome = pe.Usuario!.Nome,
+                        Email = pe.Usuario!.Email
+                        },
+
+                    Evento = new Evento
+                        {
+                        IdEvento = pe.Evento!.IdEvento,
+                        NomeEvento = pe.Evento!.NomeEvento,
+                        DataEvento = pe.Evento!.DataEvento,
+                        Descricao = pe.Evento!.Descricao,
+
+                        IdInstituicao = pe.Evento!.IdInstituicao,
+                        IdTipoEvento = pe.Evento!.IdTipoEvento,
+
+                        Instituicao = new Instituicao
+                            {
+                            IdInstituicao = pe.Evento!.Instituicao!.IdInstituicao,
+                            NomeFantasia = pe.Evento!.Instituicao!.NomeFantasia,
+                            Endereco = pe.Evento!.Instituicao!.Endereco,
+                            CNPJ = pe.Evento!.Instituicao!.CNPJ,
+                            },
+
+                        TipoEvento = new TipoEvento
+                            {
+                            IdTipoEvento = pe.Evento!.TipoEvento!.IdTipoEvento,
+                            Titulo = pe.Evento!.TipoEvento!.Titulo
+                            }
+                        }
+                    }).FirstOrDefault(pe => pe.IdPresencaEvento == id)!;
                 }
             catch (Exception)
                 {
@@ -72,7 +111,46 @@ namespace webapi_event__tarde.Repositories
             {
             try
                 {
-                return _eventContext.PresencaEvento.ToList();
+                return _eventContext.PresencaEvento.Select(pe => new PresencaEvento
+                    {
+                    IdPresencaEvento = pe.IdPresencaEvento,
+                    Situacao = pe.Situacao,
+
+                    IdUsuario = pe.IdUsuario,
+                    IdEvento = pe.IdEvento,
+
+                    Usuario = new Usuario
+                        {
+                        IdUsuario = pe.Usuario!.IdUsuario,
+                        Nome = pe.Usuario!.Nome,
+                        Email = pe.Usuario!.Email
+                        },
+
+                    Evento = new Evento
+                        {
+                        IdEvento = pe.Evento!.IdEvento,
+                        NomeEvento = pe.Evento!.NomeEvento,
+                        DataEvento = pe.Evento!.DataEvento,
+                        Descricao = pe.Evento!.Descricao,
+
+                        IdInstituicao = pe.Evento!.IdInstituicao,
+                        IdTipoEvento = pe.Evento!.IdTipoEvento,
+
+                        Instituicao = new Instituicao
+                            {
+                            IdInstituicao = pe.Evento!.Instituicao!.IdInstituicao,
+                            NomeFantasia = pe.Evento!.Instituicao!.NomeFantasia,
+                            Endereco = pe.Evento!.Instituicao!.Endereco,
+                            CNPJ = pe.Evento!.Instituicao!.CNPJ,
+                            },
+
+                        TipoEvento = new TipoEvento
+                            {
+                            IdTipoEvento = pe.Evento!.TipoEvento!.IdTipoEvento,
+                            Titulo = pe.Evento!.TipoEvento!.Titulo
+                            }
+                        }
+                    }).ToList();
                 }
             catch (Exception)
                 {

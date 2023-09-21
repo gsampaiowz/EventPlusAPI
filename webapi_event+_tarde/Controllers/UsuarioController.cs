@@ -90,5 +90,19 @@ namespace webapi_event__tarde.Controllers
                 return BadRequest(e.Message);
                 }
             }
+
+        [Authorize]
+        [HttpGet("Minhas")]
+        public IActionResult GetMy(Guid id)
+            {
+            try
+                {
+                return Ok(_usuarioRepository.ListarMinhas(id));
+                }
+            catch (Exception e)
+                {
+                return BadRequest(e.Message);
+                }
+            }
         }
     }
