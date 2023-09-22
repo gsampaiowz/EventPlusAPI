@@ -33,7 +33,7 @@ namespace webapi_event__tarde.Controllers
                 }
             }
 
-        [Authorize]
+        [Authorize(Roles = "Administrador")]
         [HttpGet]
         public IActionResult Get()
             {
@@ -47,7 +47,7 @@ namespace webapi_event__tarde.Controllers
                 }
             }
 
-        [Authorize]
+        [Authorize(Roles = "Administrador")]
         [HttpGet("{id}")]
         public IActionResult GetById(Guid id)
             {

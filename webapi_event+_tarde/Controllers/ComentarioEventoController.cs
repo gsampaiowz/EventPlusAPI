@@ -47,7 +47,7 @@ namespace webapi_event__tarde.Controllers
                 return BadRequest(e.Message);
                 }
             }
-        [Authorize]
+        [Authorize (Roles = "Administrador")]
         [HttpGet("{id}")]
         public IActionResult GetById(Guid id)
             {
